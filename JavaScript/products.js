@@ -1,5 +1,5 @@
 
-    const productos = [
+const productos = [
     {
         id: 1,
         nombre: "Licuadora",

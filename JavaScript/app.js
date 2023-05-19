@@ -9,6 +9,16 @@ const contenedor = document.getElementById("contenedor");
 
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
+// LOCAL STORAGE DE ITEMS
+
+const saveLocal = () =>{
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    };
+    
+    // RECUPERAR ITEMS
+    
+    JSON.parse(localStorage.getItem("carrito"));
+
 // CARGA DE PRODUCTOS
 
 productos.forEach((product)=> {
@@ -128,7 +138,7 @@ carroHeader.appendChild(carroBoton);
 
     const totalDeCompra = document.createElement("div")
     totalDeCompra.className = "contentenido-total";
-    totalDeCompra.innerHTML = `total a pagar: $ ${total}`;
+    totalDeCompra.innerHTML = `Total a pagar: $ ${total}`;
     contenedor.appendChild(totalDeCompra);
 
     // CANTIDAD PRODUCTOS EN EL CARRO
@@ -137,7 +147,7 @@ carroHeader.appendChild(carroBoton);
 
     const totalProdCarro = document.createElement("div")
     totalProdCarro.className = "contentenido-total";
-    totalProdCarro.innerHTML = `total de productos: ${totalP}`;
+    totalProdCarro.innerHTML = `Total de productos: ${totalP}`;
     contenedor.appendChild(totalProdCarro);
 
 
@@ -176,15 +186,7 @@ const eliminarProducto = ()=> {
 
 
 
-// LOCAL STORAGE DE ITEMS
 
-const saveLocal = () =>{
-localStorage.setItem("carrito", JSON.stringify(carrito));
-};
-
-// RECUPERAR ITEMS
-
-JSON.parse(localStorage.getItem("carrito"));
 
 
 
