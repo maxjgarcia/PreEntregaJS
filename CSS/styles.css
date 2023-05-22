@@ -203,3 +203,13 @@ body {
     position: absolute;
     display: none;
   }
+
+  .contenedorForm {
+margin: 3rem;
+
+  }
+
+  .btn {
+   
+    background-color:  #f3813f ;
+  }
