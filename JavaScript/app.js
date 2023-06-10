@@ -20,46 +20,87 @@ JSON.parse(localStorage.getItem("carrito"));
 
 // CARGA DE PRODUCTOS
 
-productos.forEach((product) => {
-  let content = document.createElement("div");
-  content.className = "card";
-  content.innerHTML = `
-    <img src="${product.img}"></img>
-    <h3>${product.nombre}</h3>
-    <p class="price">$ ${product.precio}</p>
-    `;
+// const productosJson = async () =>{
+//   const resp = await fetch ("/data.json");
+//   const productos = await resp.json();
 
-  productosTienda.appendChild(content);
-
-  let comprar = document.createElement("button");
-  comprar.innerText = "Agregar";
-  comprar.className = "comprar";
-
-  content.appendChild(comprar);
-
-  comprar.addEventListener("click", () => {
-    const repeat = carrito.some(
-      (repeatProduct) => repeatProduct.id === product.id
-    );
-
-    if (repeat) {
-      carrito.map((prod) => {
-        if (prod.id === product.id) {
-          prod.cantidad++;
-        }
-      });
-    } else {
-      carrito.push({
-        id: product.id,
-        nombre: product.nombre,
-        img: product.img,
-        precio: product.precio,
-        cantidad: product.cantidad,
-      });
-      saveLocal();
-    }
+  productos.forEach((product) => {
+    let content = document.createElement("div");
+    content.className = "card";
+    content.innerHTML = `
+      <img src="${product.img}"></img>
+      <h3>${product.nombre}</h3>
+      <p class="price">$ ${product.precio}</p>
+      `;
+  
+    productosTienda.append(content);
+  
+    let comprar = document.createElement("button");
+    comprar.innerText = "Agregar";
+    comprar.className = "comprar";
+  
+    content.appendChild(comprar);
+  
+    comprar.addEventListener("click", () => {
+      const repeat = carrito.some(
+        (repeatProduct) => repeatProduct.id === product.id
+      );
+  
+      if (repeat) {
+        carrito.map((prod) => {
+          if (prod.id === product.id) {
+            prod.cantidad++;
+          }
+        });
+      } else {
+        carrito.push({
+          id: product.id,
+          nombre: product.nombre,
+          img: product.img,
+          precio: product.precio,
+          cantidad: product.cantidad,
+        });
+        saveLocal();
+      }
+    });
   });
+// }
+// productosJson();
+
+// Busqueda productos
+
+const buscadorProductos = document.getElementById('buscador');
+const resultadoBusqueda = document.getElementById('buscadorResult');
+
+buscadorProductos.addEventListener('keyup', function() {
+  const busqueda = buscadorProductos.value.toLowerCase();
+  const itemBuscado = productos.filter(function(item) {
+    return item.nombre.toLowerCase().includes(busqueda)
+  });
+
+  mostrarResultado(itemBuscado);
 });
+
+
+function mostrarResultado(resultado) {
+  resultadoBusqueda.innerHTML = '';
+
+  if (resultado.length === 0) {
+    resultadoBusqueda.innerText = 'No results found.';
+    return;
+  }
+
+  const resultList = document.createElement('ul');
+  resultado.forEach(function(result) {
+    const listItem = document.createElement('li');
+    listItem.className = "list-busc"
+    listItem.innerText =result.nombre + ' $ ' + result.precio;
+    resultList.appendChild(listItem);
+  });
+
+  resultadoBusqueda.appendChild(resultList);
+}
+
 
 // --- CARRO ---
 
@@ -157,15 +198,8 @@ const eliminarProducto = (id) => {
   guardarCant();
 };
 
-// contador en storage SOLUCIONAR
+// 
 
-//    const guardarCant = () =>{
-//     const carroLength = carrito.length;
-//     localStorage.setItem("carroLength", JSON.stringify(carroLength));
-//     totalProdCarro.innerText = JSON.parse(localStorage.getItem("carroLength"));
-// }
 
-// LIMPIAR CARRO
-// PASAR A JSON LOS PRODUCTOS
-// FINALIZAR CARRO
-// AGREGAR LA FUNCION AL BUSCADOR DE PRODUCTOS
+
+

@@ -36,7 +36,6 @@ body {
     margin: auto;
     text-align: center;
     margin: 10px;
-    
    
   }
 
@@ -91,7 +90,23 @@ body {
     box-shadow: 0px 0px 30px 1px rgba(244, 156, 56, 0.274);
 
   }
+
+  /* buscador */
   
+.contLista{
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 4rem;
+  padding-top: 3rem;
+  font-size: large;
+
+
+}
+.list-busc {
+  list-style: none;
+  
+}
+
   /*carro content*/
   .contenedor {
     width: 80%;
