@@ -1,10 +1,29 @@
 const productosTienda = document.getElementById("productosTienda");
 const mostrarCarro = document.getElementById("mostrarCarro");
 const contenedor = document.getElementById("contenedor");
+const buscadorProductos = document.getElementById('buscador');
+const resultadoBusqueda = document.getElementById('buscadorResult');
+const btnAgregar = document.getElementById('btnAgregar')
 
-//
+// Traigo los productos del JSON local
+const fetchLocalJson = async () => {
+  try {
+    const response = await fetch('./data.json');
+    const data = await response.json();
+    // Guardo los productos en el Local Storage como un string
+    localStorage.setItem("products", JSON.stringify(data))
+  } catch (error) {
+    console.error('Error fetching local JSON:', error);
+  }
+}
+fetchLocalJson()
 
-// ARRAY
+// Me traigo el JSON, lo convierto a Objeto y lo guardo en la variable productos
+const products = JSON.parse(localStorage.getItem("products"))
+console.log(products);
+
+// CAMBIE EL LOCAL STORAGE DE CARRIO A UN LOCAL CARRO PARA USAER SAVELOCAL
+// const carrito = []
 
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
@@ -14,17 +33,43 @@ const saveLocal = () => {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 };
 
-// RECUPERAR ITEMS
 
-JSON.parse(localStorage.getItem("carrito"));
+// Hago una iteración y por cada producto genero una card
+// products.forEach(product => {
+//   const card = document.createElement('div');
+//   card.classList.add('card');
 
-// CARGA DE PRODUCTOS
+//   const productImg = document.createElement('img')
+//   productImg.src = product.img
+//   productImg.alt = product.nombre
 
-// const productosJson = async () =>{
-//   const resp = await fetch ("/data.json");
-//   const productos = await resp.json();
+//   const productName = document.createElement('h3');
+//   productName.textContent = product.nombre;
 
-  productos.forEach((product) => {
+//   const productPrice = document.createElement('span');
+//   productPrice.textContent = '$' + product.precio
+
+//   const productButton = document.createElement('button')
+//   productButton.textContent = 'Agregar'
+//   productButton.id = 'btnAgregar'
+
+//   card.appendChild(productImg);
+//   card.appendChild(productName);
+//   card.appendChild(productPrice);
+//   card.appendChild(productButton);
+
+//   productosTienda.appendChild(card);
+
+//   const addProductToCart = async () => {
+//     await btnAgregar.addEventListener('click', () => {
+//       console.log('click');
+//     })
+//   }
+//   addProductToCart()
+
+// });
+
+  products.forEach((product) => {
     let content = document.createElement("div");
     content.className = "card";
     content.innerHTML = `
@@ -64,13 +109,8 @@ JSON.parse(localStorage.getItem("carrito"));
       }
     });
   });
-// }
-// productosJson();
 
-// Busqueda productos
 
-const buscadorProductos = document.getElementById('buscador');
-const resultadoBusqueda = document.getElementById('buscadorResult');
 
 buscadorProductos.addEventListener('keyup', function() {
   const busqueda = buscadorProductos.value.toLowerCase();
@@ -148,6 +188,7 @@ const crearCarro = () => {
       if (product.cantidad != 1) product.cantidad--;
       crearCarro();
       saveLocal();
+
     });
 
     // +producto en carro
@@ -164,6 +205,18 @@ const crearCarro = () => {
       eliminarProducto(product.id);
     });
   });
+
+  const eliminarProducto = (id) => {
+    const foundId = carrito.find((element) => element.id === id);
+  
+    carrito = carrito.filter((carritoId) => {
+      return carritoId !== foundId;
+    });
+  
+    crearCarro();
+    saveLocal();
+    guardarCant();
+  };
 
   // TOTAL FINAL DE LA COMPRA
 
@@ -186,19 +239,17 @@ const crearCarro = () => {
 
 mostrarCarro.addEventListener("click", crearCarro);
 
-const eliminarProducto = (id) => {
-  const foundId = carrito.find((element) => element.id === id);
+// FORM
 
-  carrito = carrito.filter((carritoId) => {
-    return carritoId !== foundId;
-  });
+const form = document.getElementById('form')
 
-  crearCarro();
-  saveLocal();
-  guardarCant();
-};
+form.addEventListener('submit',(e)=> {
+  e.preventDefault();
+  var formName = document.getElementById('formName').value;
+  var formLastname = document.getElementById('formLastname').value;
+  console.log(formName, formLastname);
 
-// 
+});
 
 
 
