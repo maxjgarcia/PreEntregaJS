@@ -34,40 +34,7 @@ const saveLocal = () => {
 };
 
 
-// Hago una iteración y por cada producto genero una card
-// products.forEach(product => {
-//   const card = document.createElement('div');
-//   card.classList.add('card');
 
-//   const productImg = document.createElement('img')
-//   productImg.src = product.img
-//   productImg.alt = product.nombre
-
-//   const productName = document.createElement('h3');
-//   productName.textContent = product.nombre;
-
-//   const productPrice = document.createElement('span');
-//   productPrice.textContent = '$' + product.precio
-
-//   const productButton = document.createElement('button')
-//   productButton.textContent = 'Agregar'
-//   productButton.id = 'btnAgregar'
-
-//   card.appendChild(productImg);
-//   card.appendChild(productName);
-//   card.appendChild(productPrice);
-//   card.appendChild(productButton);
-
-//   productosTienda.appendChild(card);
-
-//   const addProductToCart = async () => {
-//     await btnAgregar.addEventListener('click', () => {
-//       console.log('click');
-//     })
-//   }
-//   addProductToCart()
-
-// });
 
   products.forEach((product) => {
     let content = document.createElement("div");
